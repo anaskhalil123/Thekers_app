@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/view/azkar_splach_screen.dart';
+import 'package:flutter_application/model/ThekerClass.dart';
+import 'package:flutter_application/model/ThekerData.dart';
+import 'package:flutter_application/view/home_screen.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(ThekerClassAdapter());
+  Hive.registerAdapter(ThekerDataAdapter());
+  await Hive.openBox<ThekerClass>('thekerClasses');
+  await Hive.openBox<ThekerData>('thekers');
+  print('MAIN data will add now!');
+  addThekersAndClasses();
   runApp(
     const MyApp(),
   );
@@ -16,8 +26,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       // initialRoute: '/',
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      home: AzkarSplashScreen(),
+      title: 'أذكار الصباح والمساء',
+      home: HomeScreen(),
     );
   }
 }

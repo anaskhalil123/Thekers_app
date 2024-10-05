@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application/controller/thekers_class_card.dart';
 import 'package:flutter_application/statics/statics.dart';
 import 'package:flutter_application/view/settings_screen.dart';
 import 'package:flutter_application/view/taspeh_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_application/view/widgets/theker_header_view.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
+  var data = getThekerClasses();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -128,11 +130,19 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: height / 50,
             ),
-            ThekerHeaderView(width: width, text: 'أذكار الصباح'),
-            ThekerHeaderView(width: width, text: 'أذكار المساء'),
-            ThekerHeaderView(width: width, text: 'أذكار بعد الصلاة'),
-            ThekerHeaderView(width: width, text: 'أذكار الاستيقاظ'),
-            ThekerHeaderView(width: width, text: 'أذكار النوم'),
+            Container(
+              width: width,
+              height: height / 1.5,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return ThekerHeaderView(
+                    width: width,
+                    text: data[index].name,
+                  );
+                },
+                itemCount: data.length,
+              ),
+            )
           ],
         ),
       ),

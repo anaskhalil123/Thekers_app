@@ -22,11 +22,11 @@ class TaspehScreen extends StatelessWidget {
             },
           ),
         ],
-        title: Align(
+        title: const Align(
           alignment: Alignment.centerRight,
           child: Text(
             'المسبحة الإلكترونية',
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
             ),
           ),
@@ -44,58 +44,68 @@ class TaspehScreen extends StatelessWidget {
           ),
           color: Colors.white,
         ),
-        child: Center(
-          child: TextButton(
-            onPressed: () {},
-            child: Container(
-              width: width / 1.5,
-              height: height / 3,
-              decoration: BoxDecoration(
-                color: Constants.grayColor.withOpacity(0.55),
-                borderRadius: BorderRadius.circular(200),
-                border: Border.all(
-                  color: Constants.mainColor,
-                  width: 4,
+        child: ListView(
+          children: [
+            Center(
+              child: Container(
+                width: width / 1.5,
+                height: height / 3,
+                decoration: BoxDecoration(
+                  color: Constants.grayColor.withOpacity(0.55),
+                  borderRadius: BorderRadius.circular(200),
+                  border: Border.all(
+                    color: Constants.mainColor,
+                    width: 4,
+                  ),
+                ),
+                child: ListView(
+                  children: [
+                    SizedBox(
+                      height: height / 30,
+                    ),
+                    Center(
+                      child: Text(
+                        'استغفر الله',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width / 15,
+                            fontFamily: 'HacenTehran'),
+                      ),
+                    ),
+                    SizedBox(
+                      height: height / 8,
+                    ),
+                    Center(
+                      child: Text(
+                        'مجموع التسبيحات',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        '${Constants.taspeeh_number}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 35,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              child: ListView(
-                children: [
-                  SizedBox(
-                    height: height / 30,
-                  ),
-                  Center(
-                    child: Text(
-                      'استغفر الله',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.width / 15,
-                        fontFamily: 'HacenTehran'
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height / 8,
-                  ),
-                  Center(
-                    child: Text(
-                      'مجموع التسبيحات',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      '100',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 35,
-                      ),
-                    ),
-                  )
-                ],
-              ),
             ),
-          ),
+            SizedBox(
+              height: height / 3,
+            ),
+            TextButton(
+              onPressed: () {
+                Constants.taspeeh_number = 100;
+              },
+              child: Text('أعد التسبيح'),
+              style: ButtonStyle(),
+            )
+          ],
         ),
       ),
     );

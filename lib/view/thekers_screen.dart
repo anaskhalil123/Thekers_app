@@ -1,74 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/controller/thekers_class_card.dart';
+import 'package:flutter_application/model/ThekerData.dart';
+import 'package:flutter_application/model/theker_number.dart';
 import 'package:flutter_application/view/home_screen.dart';
 import 'package:flutter_application/view/widgets/theker_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application/statics/statics.dart';
 
+// TODO ضايل هلقيت أعرف كيف بدي أضيف كل رقم من هادي الليست لكل ذكر
 class ThekersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
-    final String receivedText = Get.arguments as String;
-    return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Constants.mainColor,
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.arrow_forward),
-            onPressed: () {
-              Get.off(HomeScreen());
-            },
-          ),
-        ],
-        title: Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            receivedText,
-            textDirection: TextDirection.ltr,
-            style: const TextStyle(
-              fontFamily: 'HacenTehran',
-              color: Colors.white,
+    final String receivedText = Get.arguments ?? '';
+
+    // get data from database
+    print('receivedText is $receivedText');
+    print('get data from db');
+    var data = getThekersForClasses(receivedText);
+
+    // save the Thekers numbers in the static List
+    int index = 0; // id for the thekers numbers
+    for (ThekerData theker in data) {
+      Constants.thekerNumbers.add(
+        ThekerNumber(
+          thekerId: 0,
+          thekerNumber: int.parse(theker.number),
+        ),
+      );
+      index++;
+    }
+
+    // print the list
+    print(Constants.thekerNumbers.length);
+
+    return WillPopScope(
+      onWillPop: () async {
+        Constants.thekerNumbers = [];
+        print(
+            'After back from the screen, thekerNumbers list will return empty \n it length is ${Constants.thekerNumbers.length}');
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          foregroundColor: Colors.white,
+          backgroundColor: Constants.mainColor,
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.arrow_forward),
+              onPressed: () {
+                Get.off(HomeScreen());
+                Constants.thekerNumbers = [];
+                print(
+                    'After back from the screen, thekerNumbers list will return empty \n it length is ${Constants.thekerNumbers.length}');
+              },
+            ),
+          ],
+          title: Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              receivedText,
+              textDirection: TextDirection.ltr,
+              style: const TextStyle(
+                fontFamily: 'HacenTehran',
+                color: Colors.white,
+              ),
             ),
           ),
         ),
-      ),
-      body: Scrollbar(
-        child: ListView(
-          children: [
-            Theker(
-              thekerText: 'الحمدلله والله أكبر',
-              thekerReward: 'الحمدلله',
-              thekerNumber: 3,
-            ),
-            Theker(
-              thekerText: 'الحمدلله والله أكبر',
-              thekerReward: 'الحمدلله',
-              thekerNumber: 4,
-            ),
-            Theker(
-              thekerText: 'الحمدلله والله أكبر',
-              thekerReward: 'الشكر لله تعالى',
-              thekerNumber: 7,
-            ),
-            Theker(
-              thekerText: 'أستغفر الله وأتوب إليه',
-              thekerReward: 'الحمدلله',
-              thekerNumber: 3,
-            ),
-            Theker(
-              thekerText: 'الحمدلله والله أكبر',
-              thekerReward: 'الحمدلله',
-              thekerNumber: 3,
-            ),
-            Theker(
-              thekerText: 'الحمدلله والله أكبر',
-              thekerReward: 'الحمدلله',
-              thekerNumber: 3,
-            ),
-          ],
+        body: Scrollbar(
+          child: ListView.builder(
+            addAutomaticKeepAlives: false,
+            addRepaintBoundaries: false,
+            itemBuilder: (context, index) {
+              print('add the class to the View');
+              return Theker(
+                thekerText: data[index].text,
+                thekerGuide: data[index].guide,
+                thekerReward: data[index].reward,
+                thekerNumber: data[index].number,
+                thekerChangableNumber:
+                    Constants.thekerNumbers[index].thekerNumber,
+                thekerID: index,
+              );
+            },
+            itemCount: data.length,
+          ),
         ),
       ),
     );

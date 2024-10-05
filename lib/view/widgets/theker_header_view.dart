@@ -20,7 +20,10 @@ class ThekerHeaderView extends StatelessWidget {
       child: TextButton(
         onPressed: () {
           print('button clicked ,');
-          Get.to(ThekersScreen(), arguments: text);
+          Get.to(
+            ThekersScreen(),
+            arguments: text,
+          );
         },
         style: ButtonStyle(
           padding: WidgetStateProperty.all(const EdgeInsets.all(15)),
