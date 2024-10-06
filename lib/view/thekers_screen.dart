@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/controller/thekers_class_card.dart';
+import 'package:flutter_application/model/thekers_class_card.dart';
 import 'package:flutter_application/model/ThekerData.dart';
 import 'package:flutter_application/model/theker_number.dart';
 import 'package:flutter_application/view/home_screen.dart';
@@ -43,7 +43,7 @@ class ThekersScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.white,
-          backgroundColor: Constants.mainColor,
+          backgroundColor: Theme.of(context).primaryColor,
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
@@ -62,8 +62,9 @@ class ThekersScreen extends StatelessWidget {
               receivedText,
               textDirection: TextDirection.ltr,
               style: const TextStyle(
-                fontFamily: 'HacenTehran',
+                fontFamily: 'alfont_com_SakkalKitab',
                 color: Colors.white,
+                fontWeight: FontWeight.bold
               ),
             ),
           ),

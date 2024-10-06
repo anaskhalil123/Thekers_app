@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application/controller/thekers_class_card.dart';
+import 'package:flutter_application/model/thekers_class_card.dart';
 import 'package:flutter_application/statics/statics.dart';
 import 'package:flutter_application/view/settings_screen.dart';
 import 'package:flutter_application/view/taspeh_screen.dart';
@@ -16,13 +16,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        backgroundColor: Constants.mainColor,
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               'أذكار الصباح والمساء',
-              style: TextStyle(color: Colors.white, fontFamily: 'HacenTehran'),
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'alfont_com_SakkalKitab',
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -57,15 +60,15 @@ class HomeScreen extends StatelessWidget {
                   'الضبط',
                   textAlign: TextAlign.end,
                   style: TextStyle(
-                    fontFamily: 'HacenTehran',
+                    fontFamily: 'alfont_com_SakkalKitab',
                     fontSize: height / 40,
-                    color: Constants.mainColor,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                trailing: const Icon(
+                trailing: Icon(
                   Icons.settings,
-                  color: Constants.mainColor,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               ListTile(
@@ -77,12 +80,15 @@ class HomeScreen extends StatelessWidget {
                   textAlign: TextAlign.end,
                   style: TextStyle(
                     fontSize: height / 45,
-                    fontFamily: 'HacenTehran',
-                    color: Constants.mainColor,
+                    fontFamily: 'alfont_com_SakkalKitab',
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                trailing: const Icon(Icons.restore, color: Constants.mainColor),
+                trailing: Icon(
+                  Icons.restore,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               ListTile(
                 onTap: () {
@@ -94,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                   textAlign: TextAlign.end,
                   style: TextStyle(
                     fontSize: height / 40,
-                    fontFamily: 'HacenTehran',
+                    fontFamily: 'alfont_com_SakkalKitab',
                     color: Constants.redColor,
                     fontWeight: FontWeight.w600,
                   ),

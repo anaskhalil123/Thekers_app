@@ -19,7 +19,6 @@ class ThekerHeaderView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
       child: TextButton(
         onPressed: () {
-          print('button clicked ,');
           Get.to(
             ThekersScreen(),
             arguments: text,
@@ -27,14 +26,15 @@ class ThekerHeaderView extends StatelessWidget {
         },
         style: ButtonStyle(
           padding: WidgetStateProperty.all(const EdgeInsets.all(15)),
-          backgroundColor: const WidgetStatePropertyAll(Constants.mainColor),
+          backgroundColor: WidgetStatePropertyAll(Theme.of(context).primaryColor),
         ),
         child: Text(
           text,
           style: TextStyle(
             fontSize: width / 18,
             color: Colors.white,
-            fontFamily: 'HacenTehran',
+            fontFamily: 'alfont_com_SakkalKitab',
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),

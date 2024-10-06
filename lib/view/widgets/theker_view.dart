@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/controller/theker_count_controller.dart';
+import 'package:flutter_application/controller/theme_controller.dart';
 import 'package:flutter_application/statics/statics.dart';
 import 'package:get/get.dart';
 
@@ -47,8 +48,9 @@ class Theker extends StatelessWidget {
                 child: Text(
                   thekerText,
                   style: TextStyle(
-                    fontFamily: 'HacenTehran',
+                    fontFamily: 'alfont_com_PortadaARA-Bold',
                     fontSize: width / 18,
+                    color: Colors.black,
                     height: 1,
                   ),
                 ),
@@ -58,10 +60,11 @@ class Theker extends StatelessWidget {
                 child: Text(
                   thekerReward,
                   style: TextStyle(
-                      fontSize: width / 23,
-                      height: 0.9,
-                      fontFamily: 'HacenTehran',
-                      color: const Color.fromARGB(255, 161, 100, 7)),
+                    fontSize: width / 28,
+                    height: 0.9,
+                    fontFamily: 'alfont_com_DGAgnadeen-Thin',
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                  ),
                 ),
               ),
               Padding(
@@ -80,77 +83,78 @@ class Theker extends StatelessWidget {
                           Constants.thekerNumbers[thekerID].thekerNumber =
                               thekerCountController.thekerCount.value;
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.restart_alt_rounded,
-                          color: Constants.mainColor,
+                          color: Theme.of(context).primaryColor,
                           size: 30,
                         ),
                       ),
                     ),
                     Expanded(
                       flex: 5,
-                      child: Obx(() {
-                        // print(
-                        //     'the thekerNumber before change ${Constants.thekerNumbers[thekerID].thekerNumber}');
-                        // var num = thekerCountController.thekerCount.value;
-                        // // change it inside the list
-                        // Constants.thekerNumbers[thekerID].thekerNumber =
-                        //     thekerChangableNumber;
-                        // print(
-                        //     '/////////////////////////////////////////////////////////\n');
-                        // print(
-                        //     'the thekerNumber after change ${Constants.thekerNumbers[thekerID].thekerNumber}');
-                        return TextButton(
-                          onPressed: () {
-                            print(
-                                'the thekerNumber before change ${Constants.thekerNumbers[thekerID].thekerNumber}');
-
-                            thekerCountController.decreaseNumber();
-                            thekerChangableNumber =
-                                thekerCountController.thekerCount.value;
-                            Constants.thekerNumbers[thekerID].thekerNumber =
-                                thekerCountController.thekerCount.value;;
-                            print(
-                                'the thekerNumber after change ${Constants.thekerNumbers[thekerID].thekerNumber}');
-                          },
-                          style: ButtonStyle(
-                            padding: WidgetStateProperty.all(
-                              EdgeInsets.symmetric(
-                                vertical: height / 130,
-                              ), // horizontal: width / 3,
+                      child: Obx(
+                        () {
+                          return TextButton(
+                            onPressed: () {
+                              print(
+                                'the thekerNumber before change ${Constants.thekerNumbers[thekerID].thekerNumber}',
+                              );
+                              thekerCountController.decreaseNumber();
+                              thekerChangableNumber =
+                                  thekerCountController.thekerCount.value;
+                              Constants.thekerNumbers[thekerID].thekerNumber =
+                                  thekerCountController.thekerCount.value;
+                              print(
+                                  'the thekerNumber after change ${Constants.thekerNumbers[thekerID].thekerNumber}');
+                            },
+                            style: ButtonStyle(
+                              padding: WidgetStateProperty.all(
+                                EdgeInsets.symmetric(
+                                  vertical: height / 130,
+                                ), // horizontal: width / 3,
+                              ),
+                              backgroundColor: WidgetStatePropertyAll(
+                                Theme.of(context).primaryColor,
+                              ),
                             ),
-                            backgroundColor: const WidgetStatePropertyAll(
-                                Constants.mainColor),
-                          ),
-                          child: Text(
-                            '${thekerCountController.thekerCount}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width / 18,
+                            child: Text(
+                              '${thekerCountController.thekerCount}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: width / 18,
+                              ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        },
+                      ),
                     ),
                     Expanded(
                       flex: 1,
                       child: IconButton(
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.menu_book,
-                          color: Constants.mainColor,
+                          color: Theme.of(context).primaryColor,
                           size: 30,
                         ),
                         onPressed: () {
                           Get.defaultDialog(
                             title: 'الدليل',
-                            cancel: TextButton(
-                              child: const Text(
-                                'حسناً',
-                                style: TextStyle(color: Colors.black),
+                            cancel: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStatePropertyAll(
+                                    Theme.of(context).primaryColor,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text(
+                                  'حسناً',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
-                              onPressed: () {
-                                Get.back();
-                              },
                             ),
                             contentPadding: EdgeInsets.zero,
                             content: SizedBox(
@@ -162,6 +166,8 @@ class Theker extends StatelessWidget {
                                   child: Text(
                                     thekerGuide,
                                     textAlign: TextAlign.right,
+                                    style: const TextStyle(
+                                        fontFamily: 'alfont_com_SakkalKitab'),
                                   ),
                                 ),
                               ),
@@ -180,3 +186,13 @@ class Theker extends StatelessWidget {
     );
   }
 }
+// print(
+//     'the thekerNumber before change ${Constants.thekerNumbers[thekerID].thekerNumber}');
+// var num = thekerCountController.thekerCount.value;
+// // change it inside the list
+// Constants.thekerNumbers[thekerID].thekerNumber =
+//     thekerChangableNumber;
+// print(
+//     '/////////////////////////////////////////////////////////\n');
+// print(
+//     'the thekerNumber after change ${Constants.thekerNumbers[thekerID].thekerNumber}');

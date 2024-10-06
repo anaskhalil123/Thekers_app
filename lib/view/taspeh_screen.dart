@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/controller/taspeeh_controller.dart';
 import 'package:flutter_application/statics/statics.dart';
 import 'package:flutter_application/view/home_screen.dart';
 import 'package:get/get.dart';
@@ -8,11 +9,12 @@ class TaspehScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    var taspeehController = Get.put(TaspeehController());
 
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        backgroundColor: Constants.mainColor,
+        backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
@@ -27,6 +29,8 @@ class TaspehScreen extends StatelessWidget {
           child: Text(
             'المسبحة الإلكترونية',
             style: TextStyle(
+              fontFamily: 'alfont_com_SakkalKitab',
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
@@ -46,64 +50,93 @@ class TaspehScreen extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            Center(
-              child: Container(
-                width: width / 1.5,
-                height: height / 3,
-                decoration: BoxDecoration(
-                  color: Constants.grayColor.withOpacity(0.55),
-                  borderRadius: BorderRadius.circular(200),
-                  border: Border.all(
-                    color: Constants.mainColor,
-                    width: 4,
-                  ),
-                ),
-                child: ListView(
-                  children: [
-                    SizedBox(
-                      height: height / 30,
-                    ),
-                    Center(
-                      child: Text(
-                        'استغفر الله',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width / 15,
-                            fontFamily: 'HacenTehran'),
+            SizedBox(
+              height: height / 5,
+            ),
+            Obx(
+              () => InkWell(
+                onTap: () {
+                  taspeehController.decreaseNumber();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: height / 15),
+                  child: Container(
+                    width: width / 2,
+                    height: height / 3,
+                    decoration: BoxDecoration(
+                      color: Constants.grayColor.withOpacity(0.55),
+                      borderRadius: BorderRadius.circular(200),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 4,
                       ),
                     ),
-                    SizedBox(
-                      height: height / 8,
-                    ),
-                    Center(
-                      child: Text(
-                        'مجموع التسبيحات',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        '${Constants.taspeeh_number}',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 35,
+                    child: ListView(
+                      children: [
+                        SizedBox(
+                          height: height / 30,
                         ),
-                      ),
-                    )
-                  ],
+                        Center(
+                          child: Text(
+                            'استغفر الله',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.of(context).size.width / 12,
+                              fontFamily: 'alfont_com_SakkalKitab',
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: height / 8,
+                        ),
+                        const Center(
+                          child: Text(
+                            'مجموع التسبيحات',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'alfont_com_SakkalKitab',
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: Text(
+                            '${taspeehController.taspeeh_number}',
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 35,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
             SizedBox(
-              height: height / 3,
+              height: height / 8,
             ),
-            TextButton(
-              onPressed: () {
-                Constants.taspeeh_number = 100;
-              },
-              child: Text('أعد التسبيح'),
-              style: ButtonStyle(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: width / 4),
+              child: TextButton(
+                onPressed: () {
+                  taspeehController.resetNumber();
+                },
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(
+                    Theme.of(context).primaryColor,
+                  ),
+                ),
+                child: Text(
+                  'أعد التسبيح',
+                  style: TextStyle(
+                    fontSize: width / 15,
+                    fontFamily: 'alfont_com_SakkalKitab',
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             )
           ],
         ),
