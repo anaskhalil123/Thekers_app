@@ -14,7 +14,7 @@ void main() async {
   await Hive.openBox<ThekerClass>('thekerClasses');
   await Hive.openBox<ThekerData>('thekers');
   print('MAIN data will add now!');
-
+  
   addThekersAndClasses();
 
   runApp(
